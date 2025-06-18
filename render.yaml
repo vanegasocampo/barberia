@@ -5,10 +5,17 @@ services:
     plan: free
     buildCommand: "pip install -r requirements.txt"
     startCommand: |
-        python manage.py makemigrations
-        python manage.py migrate
-        gunicorn barber.wsgi:application
+      # Genera migraciones si faltan (solo para desarrollo local, no falla si no hay cambios)
+      python manage.py makemigrations --no-input
       
+      # Aplica todas las migraciones pendientes
+      python manage.py migrate --no-input
+      
+      # Crea superusuario si no existe (usa variables de entorno)
+      python manage.py createsuperuser --no-input || true
+      
+      # Inicia el servidor con Gunicorn
+      gunicorn barber.wsgi:application
     autoDeploy: true
     envVars:
       - key: DJANGO_SETTINGS_MODULE
@@ -18,4 +25,10 @@ services:
       - key: DEBUG
         value: False
       - key: DATABASE_URL
-        value: postgresql://barberia_db_4vmu_user:B3RzUQWUK16eBvy16MHarM30QUQij9St@dpg-d19hf4ripnbc73el5qog-a.ohio-postgres.render.com/barberia_db_4vmu 
+        value: postgresql://barberia_db_4vmu_user:B3RzUQWUK16eBvy16MHarM30QUQij9St@dpg-d19hf4ripnbc73el5qog-a.ohio-postgres.render.com/barberia_db_4vmu
+      - key: DJANGO_SUPERUSER_USERNAME
+        value: admin
+      - key: DJANGO_SUPERUSER_EMAIL
+        value: barber@barber.com
+      - key: DJANGO_SUPERUSER_PASSWORD
+        value: proyecto1
