@@ -77,22 +77,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'barber.wsgi.application'
 
-
-# Usar SQLite si no se define DATABASE_URL
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
-    }
-else:
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=f'sqlite:///{os.path.join(BASE_DIR, "db.sqlite3")}',
-            conn_max_age=600
-        )
-    }
+# Base de datos PostgreSQL en todos los entornos (dev y prod)
+DATABASES = {
+    'default': dj_database_url.config(conn_max_age=600)
+}
 
 
 # DATABASES = {
