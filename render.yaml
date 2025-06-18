@@ -3,21 +3,19 @@ services:
     name: barberia-app
     env: python
     plan: free
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: |
-      # salir si algo falla
-      set -e
 
-      # 1) Ejecuta las migraciones en la base de datos
+    # 1) Construye el entorno, instala dependencias y corre migrations
+    buildCommand: >
+      pip install -r requirements.txt &&
+      python manage.py makemigrations --no-input &&
       python manage.py migrate --no-input
 
-      # 2) (opcional) crea superusuario si no existe
-      python manage.py createsuperuser --no-input || true
-
-      # 3) Inicia Gunicorn, ligado al puerto que Render exporta
+    # 2) Arranca tu aplicación
+    startCommand: >
       gunicorn barber.wsgi:application --bind 0.0.0.0:$PORT
 
     autoDeploy: true
+
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: barber.settings
@@ -27,9 +25,10 @@ services:
         value: "False"
       - key: DATABASE_URL
         value: postgresql://barberia_db_4vmu_user:B3RzUQWUK16eBvy16MHarM30QUQij9St@dpg-d19hf4ripnbc73el5qog-a.ohio-postgres.render.com/barberia_db_4vmu
+      # Datos para crear superusuario en build (opcional)
       - key: DJANGO_SUPERUSER_USERNAME
         value: admin
       - key: DJANGO_SUPERUSER_EMAIL
         value: admin@tudominio.com
       - key: DJANGO_SUPERUSER_PASSWORD
-        value: UnaContraseñaSegura123
+        value: UnaContrasenaSegura123
