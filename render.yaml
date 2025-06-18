@@ -6,7 +6,7 @@ services:
     buildCommand: "pip install -r requirements.txt"
     startCommand: >
       bash -c "
-        python manage.py migrate &&
+        python manage.py migrate
         gunicorn barber.wsgi:application
       "
     autoDeploy: true
