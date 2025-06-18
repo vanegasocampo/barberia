@@ -5,17 +5,18 @@ services:
     plan: free
     buildCommand: "pip install -r requirements.txt"
     startCommand: |
-      # 1) Genera archivos de migración (no falla si no hay cambios)
-      python manage.py makemigrations --no-input
+      # salir si algo falla
+      set -e
 
-      # 2) Aplica todas las migraciones pendientes
+      # 1) Ejecuta las migraciones en la base de datos
       python manage.py migrate --no-input
 
-      # 3) Crea un superusuario si no existe (usa variables de entorno)
+      # 2) (opcional) crea superusuario si no existe
       python manage.py createsuperuser --no-input || true
 
-      # 4) Arranca Gunicorn
-      gunicorn barber.wsgi:application
+      # 3) Inicia Gunicorn, ligado al puerto que Render exporta
+      gunicorn barber.wsgi:application --bind 0.0.0.0:$PORT
+
     autoDeploy: true
     envVars:
       - key: DJANGO_SETTINGS_MODULE
@@ -31,4 +32,4 @@ services:
       - key: DJANGO_SUPERUSER_EMAIL
         value: admin@tudominio.com
       - key: DJANGO_SUPERUSER_PASSWORD
-        value: UnaContrasenaSegura123
+        value: UnaContraseñaSegura123
