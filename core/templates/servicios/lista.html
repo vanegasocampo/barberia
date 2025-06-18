@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="fw-bold mb-0">Servicios</h1>
+      <p class="text-muted">Listado de todos los servicios ofrecidos</p>
+    </div>
+    <a href="{% url 'servicio_create' %}" class="btn btn-primary rounded-pill">
+      <i class="bi bi-plus-circle me-1"></i> Nuevo Servicio
+    </a>
+  </div>
+
+  {% if object_list %}
+    <div class="table-responsive shadow-lg rounded-4 border-0">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-primary text-white">
+          <tr class="align-middle">
+            <th scope="col">Nombre</th>
+            <th scope="col">Duración</th>
+            <th scope="col">Precio</th>
+            <th scope="col" class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for servicio in object_list %}
+            <tr>
+              <td class="fw-semibold">{{ servicio.nombre }}</td>
+              <td>{{ servicio.duracion|cut:":00" }} min</td>
+              <td>${{ servicio.precio|floatformat:0|intcomma }}</td>
+              <td class="text-center">
+                <a href="{% url 'servicio_update' servicio.id %}" class="btn btn-sm btn-outline-primary rounded-pill">
+                  <i class="bi bi-pencil-square me-1"></i> Editar
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <div class="alert alert-info mt-4" role="alert">
+      No hay servicios registrados todavía.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

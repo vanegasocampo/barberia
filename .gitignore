@@ -1,0 +1,41 @@
+# Entorno virtual
+env/
+venv/
+ENV/
+*.env
+
+# Archivos de Python compilados
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos de log y temporales
+*.log
+*.pot
+*.pyc
+*.swp
+*.swo
+*.bak
+
+# Archivos de base de datos (si usas sqlite)
+*.sqlite3
+
+# Archivos de migración generados
+*/migrations/*.py
+*/migrations/*.pyc
+
+# Archivos de configuración de VSCode
+.vscode/
+
+# Archivos estáticos y media
+/staticfiles/
+/media/
+
+# Archivos de configuraciones locales
+local_settings.py
+
+# Archivos creados por collectstatic
+static/
+
+# Configuraciones específicas de Render
+render.yaml
