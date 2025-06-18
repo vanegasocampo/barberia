@@ -4,11 +4,11 @@ services:
     env: python
     plan: free
     buildCommand: "pip install -r requirements.txt"
-    startCommand: >
-      bash -c "
+    startCommand: |
+        python manage.py makemigrations
         python manage.py migrate
         gunicorn barber.wsgi:application
-      "
+      
     autoDeploy: true
     envVars:
       - key: DJANGO_SETTINGS_MODULE
@@ -18,4 +18,4 @@ services:
       - key: DEBUG
         value: False
       - key: DATABASE_URL
-        value: postgres://postgresql://barberia_db_4vmu_user:B3RzUQWUK16eBvy16MHarM30QUQij9St@dpg-d19hf4ripnbc73el5qog-a.ohio-postgres.render.com/barberia_db_4vmu 
+        value: postgresql://barberia_db_4vmu_user:B3RzUQWUK16eBvy16MHarM30QUQij9St@dpg-d19hf4ripnbc73el5qog-a.ohio-postgres.render.com/barberia_db_4vmu 
