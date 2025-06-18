@@ -29,4 +29,4 @@ services:
       - key: DJANGO_SUPERUSER_EMAIL
         value: admin@tudominio.com
       - key: DJANGO_SUPERUSER_PASSWORD
-        value: UnaContraseñaSegura123
+        value: UnaContrasenaSegura123
