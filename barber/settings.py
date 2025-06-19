@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'valor_por_defecto')
 DEBUG = os.environ.get('DEBUG', '') != 'False'
 
 #ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ALLOWED_HOSTS = ['.railway.app','.onrender.com', 'localhost', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = [
     "https://1c65-200-29-103-72.ngrok-free.app"
 ]
