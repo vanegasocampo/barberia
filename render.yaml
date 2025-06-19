@@ -7,8 +7,8 @@ services:
     # 1) Instala las dependencias
     buildCommand: "pip install -r requirements.txt"
 
-    # 2) Corre migraciones solo una vez por deploy
-    releaseCommand: "python manage.py migrate --no-input"
+    # 2) Corre migraciones antes del despliegue
+    preDeployCommand: "python manage.py migrate --no-input"
 
     # 3) Arranca tu aplicación en el puerto que Render asigna
     startCommand: "gunicorn barber.wsgi:application --bind 0.0.0.0:$PORT"
