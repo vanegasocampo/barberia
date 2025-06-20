@@ -30,7 +30,7 @@ DEBUG = os.environ.get('DEBUG', '') != 'False'
 #ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ALLOWED_HOSTS = ['.railway.app','.onrender.com', 'localhost', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = [
-    "https://1c65-200-29-103-72.ngrok-free.app"
+    "https://barberia-app-production.up.railway.app"
 ]
 
 
