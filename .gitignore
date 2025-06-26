@@ -28,13 +28,13 @@ __pycache__/
 .vscode/
 
 # Archivos estáticos y media
-/staticfiles/
-/media/
+# /staticfiles/
+# /media/
 
 # Archivos de configuraciones locales
 local_settings.py
 
 # Archivos creados por collectstatic
-static/
+#static/
 
 
