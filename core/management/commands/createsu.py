@@ -6,15 +6,19 @@ class Command(BaseCommand):
     help = "Crea un superusuario automáticamente usando variables de entorno"
 
     def handle(self, *args, **kwargs):
-        print("🧪 Ejecutando createsu...")  # Agregado para depuración
+        self.stdout.write("🧪 Ejecutando createsu...")
 
         User = get_user_model()
         username = os.getenv("DJANGO_SUPERUSER_USERNAME")
         email = os.getenv("DJANGO_SUPERUSER_EMAIL")
         password = os.getenv("DJANGO_SUPERUSER_PASSWORD")
 
+        if not username or not email or not password:
+            self.stdout.write(self.style.ERROR("❌ Faltan variables de entorno necesarias (usuario, email o contraseña)."))
+            return
+
         if not User.objects.filter(username=username).exists():
             User.objects.create_superuser(username=username, email=email, password=password)
-            print("✅ Superusuario creado correctamente")
+            self.stdout.write(self.style.SUCCESS("✅ Superusuario creado correctamente"))
         else:
-            print("⚠️ El superusuario ya existe")
+            self.stdout.write("⚠️ El superusuario ya existe")
