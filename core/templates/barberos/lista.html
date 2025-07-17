@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="fw-bold mb-0">Barberos</h1>
+      <p class="text-muted mb-0">Gestión de barberos registrados</p>
+    </div>
+    <a href="{% url 'barbero_create' %}" class="btn btn-primary rounded-pill px-4 py-2">
+      <i class="bi bi-person-plus me-2"></i> Nuevo Barbero
+    </a>
+  </div>
+
+  {% if object_list %}
+    <div class="list-group shadow-sm rounded-4">
+      {% for barbero in object_list %}
+        <div class="list-group-item d-flex justify-content-between align-items-center px-3 py-3 border-0 border-bottom">
+          <div class="d-flex align-items-start gap-3">
+            <i class="bi bi-person-circle fs-4 text-primary"></i>
+            <div>
+              <div class="fw-semibold fs-5">{{ barbero.nombre }}</div>
+              <div class="text-muted small">
+                {{ barbero.telefono }}{% if barbero.email %} · {{ barbero.email }}{% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="d-flex gap-2">
+            <a href="{% url 'barbero_update' barbero.id %}" class="btn btn-outline-primary btn-sm px-3 py-1 rounded-pill" title="Editar">
+              <i class="bi bi-pencil-square me-1"></i> Editar
+            </a>
+            <a href="{% url 'barbero_delete' barbero.id %}"
+               class="btn btn-outline-secondary btn-sm px-3 py-1 rounded-pill"
+               onclick="return confirm('¿Estás seguro de que deseas eliminar a este barbero?');"
+               title="Eliminar">
+              <i class="bi bi-trash me-1"></i> Eliminar
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info mt-4" role="alert">
+      No hay barberos registrados todavía.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
