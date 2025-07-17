@@ -1,0 +1,38 @@
+# Entorno virtual
+env/
+venv/
+ENV/
+.env
+*.env
+
+# Archivos de configuración de VSCode y otros IDEs
+.vscode/
+.idea/
+
+# Archivos de sistema
+__pycache__/
+*.py[cod]
+*$py.class
+.DS_Store
+Thumbs.db
+
+# Archivos de bases de datos locales
+*.sqlite3
+*.db
+
+# Archivos de migración compilados
+*/migrations/*.pyc
+*/migrations/__pycache__/
+
+# Archivos estáticos recolectados
+staticfiles/
+static/
+
+# Archivos de media subidos
+media/
+
+# Archivos de logs
+*.log
+
+# Configuración de Render (solo si tienes variables secretas ahí)
+build/
